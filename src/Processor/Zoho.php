@@ -1,6 +1,7 @@
 <?php
 
 namespace Xeiter_Code\WP_Plugins\Processors_For_Caldera_Forms\Processor;
+use Xeiter_Code\WP_Plugins\Processors_For_Caldera_Forms\Adapter as Adapter;
 
 class Zoho extends \Caldera_Forms_Processor_Processor {
 
@@ -31,7 +32,7 @@ class Zoho extends \Caldera_Forms_Processor_Processor {
 		$data = array();
 
 		// Raw data is an array with field_id as the key
-		$raw_data = Caldera_Forms::get_submission_data( $form );
+		$raw_data = \Caldera_Forms::get_submission_data( $form );
 
 		// create a new array using the slug as the key
 		foreach( $raw_data as $field_id => $field_value ){
@@ -48,9 +49,9 @@ class Zoho extends \Caldera_Forms_Processor_Processor {
 		$auth_token = $config['auth_token'];
 
 		if ( $auth_token ) {
-			$adapter = new Adapter( $auth_token );
-			$adapter->set_test_mode(true);
-			$zoho_fields_sections = $adapter->create_lead( $data, $config );
+			$adapter = new \Xeiter_Code\WP_Plugins\Processors_For_Caldera_Forms\Adapter\Zoho( $auth_token );
+			// $adapter->set_test_mode(true);
+			$response = $adapter->create_lead( $data, $config );
 		}
 
 	}

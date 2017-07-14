@@ -53,6 +53,10 @@ Yes, definitely. Add multiple Zoho CRM processors to the same form and configure
 
 == Changelog ==
 
+= 0.1.1 =
+* Fixed bug with auto-initialisation of parameters array
+* Minor refactoring of lead creation method for Zoho CRM
+
 = 0.1.0 =
 * Initial release
 * Adding Zoho CRM integration processor

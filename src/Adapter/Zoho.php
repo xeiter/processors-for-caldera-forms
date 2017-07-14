@@ -124,15 +124,7 @@ MULTI;
 	 * @access protected
 	 */
 	protected function get_url_for_create_lead() {
-
-		$parameters = array(
-			'new_format=1',
-			'authtoken=' . $this->auth_token,
-			'scope=crmapi',
-			'wfTrigger=true'
-		);
-
-		return $this->api_endpoint . $this->url_suffix_insert_lead . '?' . implode( '&', $parameters );
+		return $this->api_endpoint . $this->url_suffix_insert_lead;
 	}
 
 	/**
@@ -226,7 +218,14 @@ MULTI;
 
 		$lead_data .= $this->lead_payload_suffix;
 
-		$parameters['data'] = 'xmlData=' . $lead_data;
+		$parameters = array(
+			'new_format=1',
+			'authtoken=' . $this->auth_token,
+			'scope=crmapi',
+			'wfTrigger=true',
+			'xmlData=' . $lead_data
+		);
+
 		$parameters_string = implode( '&', $parameters );
 
 		$ch = curl_init($zoho_url);
@@ -261,11 +260,16 @@ MULTI;
 	 */
 	private function get_lead_payload_row( $key, $data, $fields_config ) {
 
-		$row = $this->lead_payload_row_template;
-		$row = str_replace( '{FIELDNAME}', $fields_config[ $key . '_mapping' ], $row );
-		$row = str_replace( '{FIELDVALUE}', $data[$key], $row );
+		if ( isset( $fields_config[ $key . '_mapping' ]) && isset( $data[$key] ) ) {
 
-		return $row;
+			$row = $this->lead_payload_row_template;
+			$row = str_replace( '{FIELDNAME}', $fields_config[ $key . '_mapping' ], $row );
+			$row = str_replace( '{FIELDVALUE}', $data[ $key ], $row );
+
+			return $row;
+		}
+
+		return false;
 
 	}
 
