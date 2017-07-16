@@ -15,7 +15,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( function_exists('caldera_forms_load') ) {
+/**
+ * Load once Caldera Forms is loaded, if it is loaded
+ */
+add_action( 'caldera_forms_includes_complete', function() {
 
 	/**
 	 * Class autoloader implementation
@@ -47,7 +50,7 @@ if ( function_exists('caldera_forms_load') ) {
 	// Define plugin constants
 	define( 'XC_PFCF_CORE_PATH', plugin_dir_path(__FILE__) );
 	define( 'XC_PFCF_URL', plugin_dir_url(__FILE__)) ;
-	define( 'XC_PFCF_VER', '1.0');
+	define( 'XC_PFCF_VER', '0.1.2');
 	define( 'XC_PFCF_BASENAME', plugin_basename( __FILE__ ) );
 
 	// Initialise the global that will store list of already processed processors
@@ -55,16 +58,8 @@ if ( function_exists('caldera_forms_load') ) {
 	global $xc_pfcf_processors;
 	$xc_pfcf_processors = [];
 
-	// Attach Caldera forms core
-	require_once(XC_PFCF_CORE_PATH . '/../caldera-forms/caldera-core.php');
-	require_once(XC_PFCF_CORE_PATH . '/../caldera-forms/caldera-core.php');
-
-	// Make sure Caldera Forms classes are loaded
-	caldera_forms_load();
-
 	if ( class_exists('\\Xeiter_Code\\WP_Plugins\\Processors_For_Caldera_Forms\\Controller') ) {
-		$processor = new PFCF\Controller();
+		new PFCF\Controller();
 	}
 
-}
-
+});
