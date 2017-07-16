@@ -53,6 +53,9 @@ Yes, definitely. Add multiple Zoho CRM processors to the same form and configure
 
 == Changelog ==
 
+= 0.1.2 =
+* Switched to using the "caldera_forms_includes_complete" hook for checking if Caldera Forms core has been loaded
+
 = 0.1.1 =
 * Fixed bug with auto-initialisation of parameters array
 * Minor refactoring of lead creation method for Zoho CRM
