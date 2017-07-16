@@ -4,7 +4,7 @@
  * Plugin Name: Processors for Caldera Forms
  * Plugin URI:
  * Description: Extra processors for Caldera Forms (such as Zoho CRM etc.)
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Anton Zaroutski
  */
 
